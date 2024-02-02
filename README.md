@@ -15,7 +15,7 @@ hi this is a test change!
 - TypeScript
 - Tailwind CSS
 - Clerk
-- Drizzle ORM
+- Drizzle ORM + Drizzle Kit
 - PostgreSQL
 - AWS SDK
 - OpenAI API
@@ -80,4 +80,23 @@ Follow the steps below to install and setup the project:
 # NEW LEARNING
 
 1. BY DEFAULT ROUTE ARE PROTECTED ROUTE, EXCEPT CLERK'S SIGNIN PAGE
-2.
+2. DRIZZLE ORM IS FASTER THAN PRISMA, SUPPORTS EDGE. ALLOWS CREATING TABLE WITHOUT SQL
+3. "double negation" or "bang bang" operator:
+   It casts to boolean. The first ! negates it once, converting values like so:
+
+- undefined to true
+- null to true
+- +0 to true
+- -0 to true
+- '' to true
+- NaN to true
+- false to true
+- All other expressions to false
+  Then the other ! negates it again. A concise cast to boolean, exactly equivalent to ToBoolean simply because ! is defined as its negation. It’s unnecessary here, though, because it’s only used as the condition of the conditional operator, which will determine truthiness in the same way. 4.
+
+4. BANG OPERATOR: tell the TypeScript compiler that you are certain that the value is not null or undefined.
+
+# drizzle commands
+
+npx drizzle-kit push:pg
+npx drizzle-kit studio: inbrowser db client
