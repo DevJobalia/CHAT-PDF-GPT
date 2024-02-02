@@ -100,3 +100,8 @@ Follow the steps below to install and setup the project:
 
 npx drizzle-kit push:pg
 npx drizzle-kit studio: inbrowser db client
+
+# AI RAG
+
+Vector: Array of number
+Its just like an 2d arrow[width, height], or 3d arrow or multidimensional like 1000dimension
