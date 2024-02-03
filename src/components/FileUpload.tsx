@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
-import { uploadToS3 } from "@/lib/s3";
+import { uploadToS3 } from "@/lib/client-s3";
 import toast from "react-hot-toast";
 
 const FileUpload = () => {
@@ -47,7 +47,8 @@ const FileUpload = () => {
         }
         mutate(data, {
           onSuccess: (data) => {
-            toast.success(data.message);
+            // toast.success(data.message);
+            console.log(data);
           },
           onError: (err) => {
             toast.error("Error creating chat");
