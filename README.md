@@ -95,6 +95,8 @@ Follow the steps below to install and setup the project:
   Then the other ! negates it again. A concise cast to boolean, exactly equivalent to ToBoolean simply because ! is defined as its negation. It’s unnecessary here, though, because it’s only used as the condition of the conditional operator, which will determine truthiness in the same way. 4.
 
 4. BANG OPERATOR: tell the TypeScript compiler that you are certain that the value is not null or undefined.
+5. cn() in shadcn
+6. <p className=" w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
 
 # drizzle commands
 
