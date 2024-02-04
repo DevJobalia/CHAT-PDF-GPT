@@ -8,6 +8,7 @@ import md5 from "md5";
 
 import { downloadFromS3 } from "./server-s3";
 import { getEmbeddings } from "./embeddings";
+import { convertToAscii } from "./utils";
 
 export const getPineconeClient = () => {
   return new Pinecone({
@@ -41,6 +42,16 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
   //3. vectorise and embed individual documents
   const vectors = await Promise.all(documents.flat().map(embedDocument));
+
+  // 4. upload to pinecone
+  const client = await getPineconeClient();
+  const pineconeIndex = client.Index("cha-gpt-pdf");
+
+  console.log("Inserting vectors into pinecone");
+  const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+  await namespace.upsert(vectors);
+
+  return documents[0];
 }
 
 // 3.
