@@ -20,7 +20,7 @@ export const getPineconeClient = () => {
 type PDFPage = {
   pageContent: string;
   metadata: {
-    loc: { pageNumber: number };
+    loc: { pageNumber: number; fileKey: string };
   };
 };
 
@@ -38,20 +38,30 @@ export async function loadS3IntoPinecone(fileKey: string) {
   const pages = (await loader.load()) as PDFPage[];
   // 2. split and segment the pdf in efficient short format
   // pages = Array(13) -to-> Array(1000)
-  const documents = await Promise.all(pages.map(prepareDocument));
+  const documents = await Promise.all(
+    pages.map(prepareDocument)
+    // pages.map((page) => prepareDocument(page, fileKey))
+  );
 
   //3. vectorise and embed individual documents
   const vectors = await Promise.all(documents.flat().map(embedDocument));
+  // documents.flat().map((doc) => embedDocument(doc, fileKey))
+  // );
 
   // 4. upload to pinecone
   const client = await getPineconeClient();
-  const pineconeIndex = client.Index("cha-gpt-pdf");
+  const pineconeIndex = await client.Index("cha-gpt-pdf");
 
-  console.log("Inserting vectors into pinecone");
+  console.log("Inserting vectors into pinecone", vectors);
+  // const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+  // await namespace.upsert(vectors);
+  const request = vectors;
   const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+  await pineconeIndex.upsert(request);
   await namespace.upsert(vectors);
+  console.log("Inserted vectors into pinecone");
 
-  return documents[0];
+  return documents;
 }
 
 // 3.
@@ -63,11 +73,11 @@ async function embedDocument(doc: Document) {
     return {
       id: hash,
       values: embeddings,
-      metaData: {
+      metadata: {
         text: doc.metadata.text,
         pageNumber: doc.metadata.pageNumber,
       },
-    };
+    } as PineconeRecord;
   } catch (error) {
     console.log("error embedding document", error);
     throw error;
