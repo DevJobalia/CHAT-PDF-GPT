@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 // PROVIDE UI ACCESS TO GPT
 import { useChat } from "ai/react";
 import { Input } from "./ui/input";
@@ -14,8 +14,22 @@ const ChatComponent = ({ chatId }: Props) => {
     api: "/api/chat",
     body: { chatId },
   });
+
+  useEffect(() => {
+    const messageContainer = document.getElementById("message-container");
+    if (messageContainer) {
+      messageContainer.scrollTo({
+        top: messageContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
   return (
-    <div className=" relative max-h-screen overflow-scroll">
+    <div
+      className=" relative max-h-screen overflow-scroll"
+      id="message-container"
+    >
       {/* HEADER */}
       <div className=" sticky top-0 inset-x-0 p-2 bg-white h-full">
         <h3 className=" text-xl font-bold">Chat</h3>
