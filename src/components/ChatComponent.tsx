@@ -10,7 +10,9 @@ import MessageList from "./MessageList";
 type Props = {};
 
 const ChatComponent = (props: Props) => {
-  const { input, handleInputChange, handleSubmit, messages } = useChat();
+  const { input, handleInputChange, handleSubmit, messages } = useChat({
+    api: "/api/chat",
+  });
   return (
     <div className=" relative max-h-screen overflow-scroll">
       {/* HEADER */}
