@@ -16,7 +16,7 @@ export async function POST(req: Request, res: Response) {
     const { file_key, file_name } = body;
     console.log("ROUTE", file_key);
 
-    // await loadS3IntoPinecone(file_key);
+    await loadS3IntoPinecone(file_key);
     // CREATE NEW CHAT IN DB
     const chat_id = await db
       .insert(chats)

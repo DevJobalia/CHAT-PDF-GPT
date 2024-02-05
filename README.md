@@ -97,6 +97,7 @@ Follow the steps below to install and setup the project:
 4. BANG OPERATOR: tell the TypeScript compiler that you are certain that the value is not null or undefined.
 5. cn() in shadcn
 6. <p className=" w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
+7. pinecone: index-database, namespace-partiction in db
 
 # drizzle commands
 
