@@ -48,6 +48,8 @@ export async function loadS3IntoPinecone(fileKey: string) {
   // documents.flat().map((doc) => embedDocument(doc, fileKey))
   // );
 
+  console.log("STEP 3", vectors);
+
   // 4. upload to pinecone
   const client = await getPineconeClient();
   const pineconeIndex = await client.Index("cha-gpt-pdf");

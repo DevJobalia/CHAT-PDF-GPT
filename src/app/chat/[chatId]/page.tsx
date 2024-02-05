@@ -29,13 +29,13 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
   return (
     <div className=" flex min-h-screen overflow-scroll">
-      <div className=" flex w-full max-h-screen overflow-scroll">
+      <div className=" flex w-full min-h-screen overflow-scroll">
         {/* CHAT SIDEBAR */}
         <div className=" flex-[1] max-w-xs">
           <ChatSideBar chats={_chats} chatId={parseInt(chatId)} />
         </div>
         {/* PDF VIEWER */}
-        <div className=" max-h-screen p-4 overflow-scroll flex-[5]">
+        <div className=" min-h-screen p-4 overflow-scroll flex-[5]">
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
         </div>
         {/* CHAT COMPONENT */}

@@ -7,17 +7,22 @@ export async function getMatchesFromEmbeddings(
   fileKey: string
 ) {
   try {
+    // step1
     const client = new Pinecone({
       //   environment: process.env.PINECONE_ENVIRONMENT!,
       apiKey: process.env.PINECONE_API_KEY!,
     });
-    const pineconeIndex = await client.index("chatpdf");
+    // step2
+    const pineconeIndex = await client.index("cha-gpt-pdf");
+    // step3
     const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+    // step4
     const queryResult = await namespace.query({
       topK: 5, //return top 5 similar vectors that matches query embedding
       vector: embeddings,
       includeMetadata: true,
     });
+    // step5
     return queryResult.matches || [];
   } catch (error) {
     console.log("error querying embeddings", error);
